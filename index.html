@@ -29,6 +29,7 @@
     }
 
     * { box-sizing: border-box; }
+
     html, body {
       margin: 0;
       padding: 0;
@@ -36,11 +37,25 @@
       color: var(--text);
       font-family: 'DM Sans', sans-serif;
     }
+
     body { min-height: 100vh; }
-    a { color: inherit; text-decoration: none; }
-    button, input, textarea, select { font: inherit; }
-    button { cursor: pointer; }
-    .hidden { display: none !important; }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, input, textarea, select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none !important;
+    }
 
     .app-shell {
       max-width: 1200px;
@@ -78,8 +93,6 @@
       background: #120d18;
       padding: 4px;
       box-shadow: 0 0 18px rgba(156,114,200,.35);
-    }
-      50% { transform: scale(1.04); }
     }
 
     .brand-title {
@@ -121,7 +134,9 @@
       box-shadow: 0 10px 30px rgba(156,114,200,.25);
     }
 
-    .btn-primary:hover { transform: translateY(-1px); }
+    .btn-primary:hover {
+      transform: translateY(-1px);
+    }
 
     .btn-secondary {
       background: #1a1325;
@@ -129,7 +144,10 @@
       border: 1px solid var(--line);
     }
 
-    .btn-small { padding: 10px 12px; font-size: 14px; }
+    .btn-small {
+      padding: 10px 12px;
+      font-size: 14px;
+    }
 
     .hero {
       display: grid;
@@ -202,7 +220,10 @@
       outline: none;
     }
 
-    .textarea { min-height: 120px; resize: vertical; }
+    .textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
 
     .tiny {
       color: var(--muted-2);
@@ -228,7 +249,10 @@
       font-size: 36px;
     }
 
-    .section-head p { margin: 0; color: var(--muted); }
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+    }
 
     .quick-grid, .dimension-grid, .feature-grid, .page-grid {
       display: grid;
@@ -248,7 +272,10 @@
       min-height: 160px;
     }
 
-    .mini-card h3, .tool-card h3 { margin: 0 0 10px; }
+    .mini-card h3,
+    .tool-card h3 {
+      margin: 0 0 10px;
+    }
 
     .metric {
       font-size: 34px;
@@ -280,9 +307,19 @@
       gap: 10px;
     }
 
-    .dimension-emoji { font-size: 24px; }
-    .dimension-name { font-size: 18px; font-weight: 700; }
-    .dimension-sub { font-size: 12px; color: var(--muted); }
+    .dimension-emoji {
+      font-size: 24px;
+    }
+
+    .dimension-name {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .dimension-sub {
+      font-size: 12px;
+      color: var(--muted);
+    }
 
     .score-badge {
       padding: 8px 10px;
@@ -446,50 +483,56 @@
       gap: 16px;
     }
 
-    .small-note { font-size: 12px; color: var(--muted-2); margin-top: 8px; }
+    .small-note {
+      font-size: 12px;
+      color: var(--muted-2);
+      margin-top: 8px;
+    }
+
+    .chat-messages {
+      min-height: 320px;
+      max-height: 420px;
+      overflow-y: auto;
+      padding: 12px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .chat-bubble {
+      max-width: 82%;
+      padding: 14px 16px;
+      border-radius: 16px;
+      line-height: 1.7;
+      font-size: 14px;
+      white-space: pre-wrap;
+    }
+
+    .chat-bubble.assistant {
+      background: #120d18;
+      border: 1px solid var(--line);
+      color: #d8cde6;
+      align-self: flex-start;
+    }
+
+    .chat-bubble.user {
+      background: linear-gradient(135deg, var(--pink), var(--purple));
+      color: #fff;
+      align-self: flex-end;
+    }
+
+    .chat-input-wrap {
+      display: grid;
+      gap: 12px;
+    }
 
     @media (max-width: 980px) {
       .hero, .quick-grid, .dimension-grid, .feature-grid, .tool-grid, .two-col, .page-grid {
         grid-template-columns: 1fr 1fr;
       }
     }
-.chat-messages {
-  min-height: 320px;
-  max-height: 420px;
-  overflow-y: auto;
-  padding: 12px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-bottom: 16px;
-}
 
-.chat-bubble {
-  max-width: 82%;
-  padding: 14px 16px;
-  border-radius: 16px;
-  line-height: 1.7;
-  font-size: 14px;
-  white-space: pre-wrap;
-}
-
-.chat-bubble.assistant {
-  background: #120d18;
-  border: 1px solid var(--line);
-  color: #d8cde6;
-  align-self: flex-start;
-}
-
-.chat-bubble.user {
-  background: linear-gradient(135deg, var(--pink), var(--purple));
-  color: #fff;
-  align-self: flex-end;
-}
-
-.chat-input-wrap {
-  display: grid;
-  gap: 12px;
-}
     @media (max-width: 700px) {
       .app-shell { padding: 14px; }
       .topbar { align-items: start; flex-direction: column; }
@@ -534,8 +577,8 @@
           </div>
           <div class="two-col">
             <button class="btn btn-primary" id="startSetupBtn">Start Your Check-In</button>
-             <button class="btn btn-secondary" id="openGraceChatBtn">Talk to G.R.A.C.E.</button>
-</div>
+            <button class="btn btn-secondary" id="openGraceChatBtn">Talk to G.R.A.C.E.</button>
+          </div>
           <div class="small-note">Start here. Rate the 8 dimensions of your life and see where you may want to focus next.</div>
         </div>
 
@@ -750,24 +793,25 @@
       <div id="toolContent"></div>
     </div>
   </div>
+
   <div class="tool-drawer hidden" id="chatDrawer">
-  <div class="tool-window">
-    <div class="tool-header">
-      <div>
-        <h2>Talk to G.R.A.C.E.</h2>
-        <div class="tiny">Direct. honest. grounded support.</div>
+    <div class="tool-window">
+      <div class="tool-header">
+        <div>
+          <h2>Talk to G.R.A.C.E.</h2>
+          <div class="tiny">Direct. honest. grounded support.</div>
+        </div>
+        <button class="btn btn-secondary" id="closeChatDrawerBtn">Close</button>
       </div>
-      <button class="btn btn-secondary" id="closeChatDrawerBtn">Close</button>
-    </div>
 
-    <div id="chatMessages" class="chat-messages"></div>
+      <div id="chatMessages" class="chat-messages"></div>
 
-    <div class="chat-input-wrap">
-      <textarea id="chatInput" class="textarea" placeholder="What is going on right now?"></textarea>
-      <button class="btn btn-primary" id="sendChatBtn">Send</button>
+      <div class="chat-input-wrap">
+        <textarea id="chatInput" class="textarea" placeholder="What is going on right now?"></textarea>
+        <button class="btn btn-primary" id="sendChatBtn">Send</button>
+      </div>
     </div>
   </div>
-</div>
 
   <script>
     const DIMENSIONS = [
@@ -814,6 +858,7 @@
     ];
 
     const STORAGE_KEY = 'grace-dashboard-v1';
+
     const GRACE_SYSTEM = `You are G.R.A.C.E. Get Right And Conquer Everything.
 
 You were built by someone who has lived through real things. Depression, anxiety, loss, financial setbacks, relationship struggles. Not as theory. As lived experience. That is why you exist.
@@ -863,6 +908,7 @@ You always end with one clear next step or something that gives them a little st
     }
 
     let state = loadState();
+    let chatHistory = [];
 
     function loadState() {
       const raw = localStorage.getItem(STORAGE_KEY);
@@ -880,9 +926,12 @@ You always end with one clear next step or something that gives them a little st
 
     function resetState() {
       state = defaultState();
+      chatHistory = [];
       saveState();
       render();
       closeDrawer();
+      closeChatDrawer();
+      document.getElementById('chatMessages').innerHTML = '';
       alert('Demo data reset.');
     }
 
@@ -1388,97 +1437,87 @@ You always end with one clear next step or something that gives them a little st
       render();
     }
 
-  document.getElementById('saveProfileBtn').addEventListener('click', saveProfile);
-document.getElementById('setBalancedBtn').addEventListener('click', () => setAllScores(5));
-document.getElementById('closeDrawerBtn').addEventListener('click', closeDrawer);
-document.getElementById('dailyCheckinBtn').addEventListener('click', openDailyCheckin);
-document.getElementById('startSetupBtn').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-document.getElementById('resetAllBtn').addEventListener('click', resetState);
+    function openChatDrawer() {
+      document.getElementById('chatDrawer').classList.remove('hidden');
 
-document.getElementById('openGraceChatBtn').addEventListener('click', openChatDrawer);
-document.getElementById('closeChatDrawerBtn').addEventListener('click', closeChatDrawer);
-document.getElementById('sendChatBtn').addEventListener('click', sendGraceMessage);
+      if (chatHistory.length === 0) {
+        addChatMessage('assistant', 'Alright. Talk to me. What is going on right now?');
+      }
+    }
 
-document.getElementById('chatInput').addEventListener('keydown', (e) => {
-  if (e.key === 'Enter' && !e.shiftKey) {
-    e.preventDefault();
-    sendGraceMessage();
-  }
-});
+    function closeChatDrawer() {
+      document.getElementById('chatDrawer').classList.add('hidden');
+    }
 
-document.getElementById('toolDrawer').addEventListener('click', (e) => {
-  if (e.target.id === 'toolDrawer') closeDrawer();
-});
+    function addChatMessage(role, text) {
+      chatHistory.push({ role, content: text });
 
-document.getElementById('chatDrawer').addEventListener('click', (e) => {
-  if (e.target.id === 'chatDrawer') closeChatDrawer();
-});
+      const wrap = document.getElementById('chatMessages');
+      const bubble = document.createElement('div');
+      bubble.className = 'chat-bubble ' + role;
+      bubble.textContent = text;
+      wrap.appendChild(bubble);
+      wrap.scrollTop = wrap.scrollHeight;
+    }
 
-render();
+    async function sendGraceMessage() {
+      const input = document.getElementById('chatInput');
+      const text = input.value.trim();
+      if (!text) return;
+
+      addChatMessage('user', text);
+      input.value = '';
+
+      try {
+        const reply = await askGrace(chatHistory);
+        addChatMessage('assistant', reply);
+      } catch (err) {
+        addChatMessage('assistant', 'Something went wrong connecting to G.R.A.C.E. We will fix it.');
+        console.error(err);
+      }
+    }
+
+    async function askGrace(messages) {
+      const res = await fetch('https://YOUR-WORKER-URL-HERE.workers.dev/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          system: GRACE_SYSTEM,
+          messages
+        })
+      });
+
+      const data = await res.json();
+      return data.reply || 'Something went wrong. Try again.';
+    }
+
+    document.getElementById('saveProfileBtn').addEventListener('click', saveProfile);
+    document.getElementById('setBalancedBtn').addEventListener('click', () => setAllScores(5));
+    document.getElementById('closeDrawerBtn').addEventListener('click', closeDrawer);
+    document.getElementById('startSetupBtn').addEventListener('click', openDailyCheckin);
+    document.getElementById('resetAllBtn').addEventListener('click', resetState);
+
+    document.getElementById('openGraceChatBtn').addEventListener('click', openChatDrawer);
+    document.getElementById('closeChatDrawerBtn').addEventListener('click', closeChatDrawer);
+    document.getElementById('sendChatBtn').addEventListener('click', sendGraceMessage);
+
+    document.getElementById('chatInput').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendGraceMessage();
+      }
     });
-let chatHistory = [];
 
-function openChatDrawer() {
-  document.getElementById('chatDrawer').classList.remove('hidden');
+    document.getElementById('toolDrawer').addEventListener('click', (e) => {
+      if (e.target.id === 'toolDrawer') closeDrawer();
+    });
 
-  if (chatHistory.length === 0) {
-    addChatMessage('assistant', 'Alright. Talk to me. What is going on right now?');
-  }
-}
+    document.getElementById('chatDrawer').addEventListener('click', (e) => {
+      if (e.target.id === 'chatDrawer') closeChatDrawer();
+    });
 
-function closeChatDrawer() {
-  document.getElementById('chatDrawer').classList.add('hidden');
-}
-
-function addChatMessage(role, text) {
-  chatHistory.push({ role, content: text });
-
-  const wrap = document.getElementById('chatMessages');
-  const bubble = document.createElement('div');
-  bubble.className = 'chat-bubble ' + role;
-  bubble.textContent = text;
-  wrap.appendChild(bubble);
-  wrap.scrollTop = wrap.scrollHeight;
-}
-
-async function sendGraceMessage() {
-  const input = document.getElementById('chatInput');
-  const text = input.value.trim();
-  if (!text) return;
-
-  addChatMessage('user', text);
-  input.value = '';
-
-  try {
-    const reply = await askGrace(chatHistory);
-    addChatMessage('assistant', reply);
-  } catch (err) {
-    addChatMessage('assistant', 'Something went wrong connecting to G.R.A.C.E. We will fix it.');
-    console.error(err);
-  }
-}
-
-/*
-  IMPORTANT:
-  This is a placeholder.
-  Do NOT put your Anthropic API key directly in this file.
-  Later this should call your backend endpoint, not api.anthropic.com directly.
-*/
-async function askGrace(messages) {
-  const res = await fetch('https://YOUR-WORKER-URL-HERE.workers.dev/chat', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      system: GRACE_SYSTEM,
-      messages
-    })
-  });
-
-  const data = await res.json();
-  return data.reply || 'Something went wrong. Try again.';
-}
     render();
   </script>
 </body>
