@@ -1478,7 +1478,8 @@ You always end with one clear next step or something that gives them a little st
     }
 
     async function askGrace(messages) {
-      const res = await fetch('https://YOUR-WORKER-URL-HERE.workers.dev/chat', {
+      const res = await fetch('
+grace-chat-worker.getrightandconquer.workers.dev', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
