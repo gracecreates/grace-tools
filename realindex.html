@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>G.R.A.C.E. — Get Right And Conquer Everything</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #080610;
+      --panel: #120d18;
+      --panel-2: #171021;
+      --line: #2b1d3d;
+      --text: #f3edf8;
+      --muted: #a08fb5;
+      --muted-2: #6f5d85;
+      --pink: #c2185b;
+      --purple: #9c72c8;
+      --lav: #b39ddb;
+      --green: #81c784;
+      --teal: #4db6ac;
+      --gold: #d4ac5a;
+      --orange: #ffb74d;
+      --red: #e57373;
+      --shadow: 0 18px 60px rgba(0,0,0,.35);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: radial-gradient(circle at top, #181028 0%, var(--bg) 40%); color: var(--text); font-family: 'DM Sans', sans-serif; }
+    body { min-height: 100vh; }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea, select { font: inherit; }
+    button { cursor: pointer; }
+    .hidden { display: none !important; }
+
+    .app-shell {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 18px;
+      border: 1px solid rgba(255,255,255,.07);
+      background: rgba(11,8,17,.7);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      position: sticky;
+      top: 10px;
+      z-index: 50;
+      box-shadow: var(--shadow);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .orb {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fff 0%, var(--lav) 15%, var(--purple) 45%, var(--pink) 100%);
+      box-shadow: 0 0 24px rgba(156,114,200,.55), 0 0 50px rgba(194,24,91,.25);
+      animation: pulse 4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+    }
+
+    .brand-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 34px;
+      line-height: 1;
+      letter-spacing: .14em;
+      background: linear-gradient(135deg, var(--pink), var(--purple), var(--lav));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-sub {
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .25em;
+      font-size: 10px;
+      margin-top: 4px;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 14px;
+      padding: 12px 16px;
+      transition: .2s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--pink), var(--purple));
+      color: #fff;
+      font-weight: 700;
+      box-shadow: 0 10px 30px rgba(156,114,200,.25);
+    }
+
+    .btn-primary:hover { transform: translateY(-1px); }
+
+    .btn-secondary {
+      background: #1a1325;
+      color: var(--text);
+      border: 1px solid var(--line);
+    }
+
+    .btn-small { padding: 10px 12px; font-size: 14px; }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 24px;
+      margin-top: 24px;
+      align-items: stretch;
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(18,13,24,.95), rgba(13,9,18,.97));
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-copy h1 {
+      margin: 0 0 12px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(42px, 7vw, 74px);
+      line-height: .98;
+      letter-spacing: .01em;
+    }
+
+    .hero-copy p {
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.75;
+      margin: 0 0 18px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 16px 0 24px;
+    }
+
+    .pill {
+      padding: 10px 14px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.03);
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .onboard-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .label {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .input, .textarea, .select {
+      width: 100%;
+      background: #0c0912;
+      color: var(--text);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px 16px;
+      outline: none;
+    }
+
+    .textarea { min-height: 120px; resize: vertical; }
+
+    .tiny {
+      color: var(--muted-2);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .section {
+      margin-top: 28px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px;
+    }
+
+    .section-head p { margin: 0; color: var(--muted); }
+
+    .quick-grid, .dimension-grid, .feature-grid, .page-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .quick-grid { grid-template-columns: repeat(4, 1fr); }
+    .dimension-grid { grid-template-columns: repeat(4, 1fr); }
+    .feature-grid { grid-template-columns: repeat(3, 1fr); }
+    .page-grid { grid-template-columns: repeat(2, 1fr); }
+
+    .mini-card {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 20px;
+      padding: 18px;
+      min-height: 160px;
+    }
+
+    .mini-card h3, .tool-card h3 { margin: 0 0 10px; }
+
+    .metric {
+      font-size: 34px;
+      font-weight: 700;
+      margin-top: 6px;
+    }
+
+    .dimension-card {
+      border-radius: 22px;
+      padding: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border: 1px solid rgba(255,255,255,.06);
+      min-height: 210px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .dimension-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .dimension-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .dimension-emoji { font-size: 24px; }
+    .dimension-name { font-size: 18px; font-weight: 700; }
+    .dimension-sub { font-size: 12px; color: var(--muted); }
+    .score-badge {
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.05);
+      font-weight: 700;
+      font-size: 12px;
+    }
+
+    .progress-track {
+      height: 10px;
+      background: rgba(255,255,255,.06);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: 999px;
+      width: 50%;
+      transition: width .25s ease;
+    }
+
+    .dimension-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: auto;
+    }
+
+    .ghost-btn {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.06);
+      color: var(--text);
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: 13px;
+    }
+
+    .tool-drawer {
+      position: fixed;
+      inset: 0;
+      background: rgba(5,4,8,.76);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .tool-window {
+      width: min(980px, 100%);
+      max-height: 90vh;
+      overflow: auto;
+      background: linear-gradient(180deg, #130f1b, #0d0912);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 26px;
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+
+    .tool-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: start;
+      margin-bottom: 20px;
+    }
+
+    .tool-header h2 {
+      margin: 0 0 6px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px;
+    }
+
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .tool-card {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 20px;
+      padding: 18px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.05);
+      color: var(--muted);
+      font-size: 12px;
+      margin: 0 8px 8px 0;
+    }
+
+    .list {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .footer {
+      margin: 32px 0 24px;
+      padding: 24px;
+      border-radius: 22px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.06);
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .notice {
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(255,183,77,.08);
+      border: 1px solid rgba(255,183,77,.18);
+      color: #f7d9a6;
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+
+    .success {
+      background: rgba(129,199,132,.08);
+      border: 1px solid rgba(129,199,132,.18);
+      color: #d3f0d5;
+    }
+
+    .danger {
+      background: rgba(229,115,115,.08);
+      border: 1px solid rgba(229,115,115,.18);
+      color: #ffd2d2;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .checkline {
+      display: flex;
+      gap: 10px;
+      align-items: start;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.06);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .small-note { font-size: 12px; color: var(--muted-2); margin-top: 8px; }
+
+    @media (max-width: 980px) {
+      .hero, .quick-grid, .dimension-grid, .feature-grid, .tool-grid, .two-col, .page-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .app-shell { padding: 14px; }
+      .topbar { align-items: start; flex-direction: column; }
+      .hero, .quick-grid, .dimension-grid, .feature-grid, .tool-grid, .two-col, .page-grid {
+        grid-template-columns: 1fr;
+      }
+      .brand-title { font-size: 28px; }
+      .hero-copy p { font-size: 16px; }
+      .section-head { flex-direction: column; align-items: start; }
+      .tool-window { padding: 18px; }
+      .tool-header { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="orb" aria-hidden="true"></div>
+        <div>
+          <div class="brand-title">G.R.A.C.E.</div>
+          <div class="brand-sub">Get Right And Conquer Everything</div>
+        </div>
+      </div>
+      <div class="nav-actions">
+        <button class="btn btn-secondary btn-small" id="resetAllBtn">Reset Demo Data</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="card hero-copy">
+          <h1>From feeling stuck to building a life with purpose, balance, and direction.</h1>
+          <p>
+            G.R.A.C.E. helps you check in with your life across the 8 dimensions of wellness, track where you are, and use tools that support real progress.
+          </p>
+          <div class="pill-row">
+            <span class="pill">Life Direction System</span>
+            <span class="pill">8 Dimensions Dashboard</span>
+            <span class="pill">Daily tools for real life</span>
+            <span class="pill">Built for real progress</span>
+          </div>
+          <div class="two-col">
+            <button class="btn btn-primary" id="startSetupBtn">Start My Setup</button>
+            <button class="btn btn-secondary" id="dailyCheckinBtn">Open Daily Check-In</button>
+          </div>
+          <div class="small-note">Start here. Be honest about where life feels strong, where it feels off, and what needs your attention most.</div>
+        </div>
+
+        <div class="card">
+          <div class="label">Quick Setup</div>
+          <div class="onboard-grid">
+            <div>
+              <label class="label" for="userName">What should G.R.A.C.E. call you?</label>
+              <input class="input" id="userName" placeholder="Your name" />
+            </div>
+            <div>
+              <label class="label" for="mainGoal">Main goal right now</label>
+              <select class="select" id="mainGoal">
+                <option value="stable life">Stable life</option>
+                <option value="financial freedom">Financial freedom</option>
+                <option value="more discipline">More discipline</option>
+                <option value="better balance">Better balance</option>
+                <option value="more purpose">More purpose</option>
+              </select>
+            </div>
+            <div>
+              <label class="label" for="biggestBlock">Biggest block</label>
+              <textarea class="textarea" id="biggestBlock" placeholder="What is getting in your way right now?"></textarea>
+            </div>
+            <button class="btn btn-primary" id="saveProfileBtn">Save My G.R.A.C.E. Profile</button>
+            <div class="tiny">Everything saves in your browser on this device. No sign-up needed.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <h2>Your Life Balance Dashboard</h2>
+            <p>Each dimension opens tools you can use right now. Move the scores as your life changes.</p>
+          </div>
+          <button class="btn btn-secondary" id="setBalancedBtn">Set All to 5</button>
+        </div>
+        <div class="quick-grid">
+          <div class="mini-card">
+            <div class="label">Average Balance</div>
+            <div class="metric" id="avgScore">0/10</div>
+            <div class="tiny">Your overall life balance right now.</div>
+          </div>
+          <div class="mini-card">
+            <div class="label">Strongest Area</div>
+            <div class="metric" id="bestDimension">—</div>
+            <div class="tiny">Where you feel most solid at the moment.</div>
+          </div>
+          <div class="mini-card">
+            <div class="label">Needs Attention</div>
+            <div class="metric" id="lowestDimension">—</div>
+            <div class="tiny">Where you may want to focus next.</div>
+          </div>
+          <div class="mini-card">
+            <div class="label">Main Goal</div>
+            <div class="metric" id="goalText">—</div>
+            <div class="tiny">Your current north star.</div>
+          </div>
+        </div>
+
+        <div class="dimension-grid" id="dimensionGrid"></div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <h2>What is included now</h2>
+            <p>Simple tools to help you reflect, get organized, and keep moving forward.</p>
+          </div>
+        </div>
+        <div class="feature-grid">
+          <div class="mini-card">
+            <h3>Right now</h3>
+            <ul class="list">
+              <li>Dashboard across 8 dimensions</li>
+              <li>Daily check-in</li>
+              <li>Journal prompts</li>
+              <li>Mood tracking</li>
+              <li>Budget and debt calculators</li>
+              <li>Habit and learning trackers</li>
+            </ul>
+          </div>
+          <div class="mini-card">
+            <h3>Growing into</h3>
+            <ul class="list">
+              <li>Deeper guided support</li>
+              <li>Personalized recommendations</li>
+              <li>Progress saved over time</li>
+              <li>Community features</li>
+              <li>Advanced wellness tools</li>
+              <li>More structured planning systems</li>
+            </ul>
+          </div>
+          <div class="mini-card">
+            <h3>The bigger vision</h3>
+            <ul class="list">
+              <li>AI Life Navigation System</li>
+              <li>AI Recovery Companion</li>
+              <li>AI Decision Coach</li>
+              <li>AI Event Builder</li>
+              <li>AI Personal Board Game Creator</li>
+              <li>G.R.A.C.E. Life Simulation Game</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <h2>What G.R.A.C.E. helps you work on</h2>
+            <p>Real support across the areas of life that affect your balance, direction, and growth.</p>
+          </div>
+        </div>
+        <div class="page-grid">
+          <div class="mini-card">
+            <h3>Check In</h3>
+            <div class="tiny">Get honest about where you are right now and what needs your attention most.</div>
+          </div>
+          <div class="mini-card">
+            <h3>Track Your Balance</h3>
+            <div class="tiny">Use the 8 dimensions to see what feels strong, what feels off, and what needs support.</div>
+          </div>
+          <div class="mini-card">
+            <h3>Build Better Habits</h3>
+            <div class="tiny">Work on the small things that help life feel more stable, grounded, and manageable.</div>
+          </div>
+          <div class="mini-card">
+            <h3>Reflect</h3>
+            <div class="tiny">Use prompts, notes, and check-ins to slow down and hear yourself clearly.</div>
+          </div>
+          <div class="mini-card">
+            <h3>Get Organized</h3>
+            <div class="tiny">Use practical tools for money, routines, goals, and life planning.</div>
+          </div>
+          <div class="mini-card">
+            <h3>Grow With Intention</h3>
+            <div class="tiny">Keep moving toward the version of your life that feels more aligned, peaceful, and real.</div>
+          </div>
+        </div>
+      </section>
+
+      <div class="footer">
+        <strong>G.R.A.C.E.</strong> is here for people who are trying to get their life back together, find balance, and move with more intention. This space is about real support, honest reflection, and tools that help you make progress one step at a time.
+      </div>
+    </main>
+  </div>
+
+  <div class="tool-drawer hidden" id="toolDrawer">
+    <div class="tool-window">
+      <div class="tool-header">
+        <div>
+          <h2 id="toolTitle">Tool</h2>
+          <div id="toolSubtitle" class="tiny"></div>
+        </div>
+        <button class="btn btn-secondary" id="closeDrawerBtn">Close</button>
+      </div>
+      <div id="toolContent"></div>
+    </div>
+  </div>
+
+  <script>
+    const DIMENSIONS = [
+      {
+        id: 'physical', name: 'Physical', sub: 'Body & Energy', emoji: '⚡', color: '#c2185b',
+        tools: ['Habit tracker', 'Wellness challenges', 'Routine builder'],
+        intro: 'Sleep. Food. Water. Movement. Basics first.'
+      },
+      {
+        id: 'emotional', name: 'Emotional', sub: 'Mind & Mental Health', emoji: '🧠', color: '#9c72c8',
+        tools: ['AI Recovery Companion', 'AI Peer Support Chat', 'Journaling prompts', 'Mood tracking'],
+        intro: 'Feel it. Process it. Do not carry it alone.'
+      },
+      {
+        id: 'financial', name: 'Financial', sub: 'Money & Wealth', emoji: '💰', color: '#d4ac5a',
+        tools: ['Credit repair tool', 'Budget planner', 'Financial goal tracker', 'Debt payoff calculator'],
+        intro: 'This is a situation, not your identity.'
+      },
+      {
+        id: 'social', name: 'Social', sub: 'Relationships & Support', emoji: '❤', color: '#e57373',
+        tools: ['AI Community Builder', 'Group challenges', 'Accountability circles'],
+        intro: 'Being caring is not weakness. Do not lose yourself.'
+      },
+      {
+        id: 'occupational', name: 'Occupational', sub: 'Career & Purpose', emoji: '🎯', color: '#4db6ac',
+        tools: ['AI Skill Builder', 'Career path planner', 'Resume generator'],
+        intro: 'Stabilize first. Build it up. Then make your move.'
+      },
+      {
+        id: 'spiritual', name: 'Spiritual', sub: 'Purpose & Peace', emoji: '✦', color: '#b39ddb',
+        tools: ['Reflection prompts', 'Gratitude system', 'Purpose exploration'],
+        intro: 'You are not broken. Sometimes you just lost touch with yourself.'
+      },
+      {
+        id: 'intellectual', name: 'Intellectual', sub: 'Growth & Learning', emoji: '📚', color: '#81c784',
+        tools: ['Learning tracker', 'Curiosity prompts', 'Book club discussions'],
+        intro: 'Keep growing. Progress does not always look big at first.'
+      },
+      {
+        id: 'environmental', name: 'Environmental', sub: 'Home & Space', emoji: '🏡', color: '#ffb74d',
+        tools: ['Home organization tools', 'Lifestyle planning', 'Living situation tracker'],
+        intro: 'Your space sets the tone for everything.'
+      }
+    ];
+
+    const STORAGE_KEY = 'grace-dashboard-v1';
+
+    function defaultState() {
+      return {
+        profile: {
+          userName: '',
+          mainGoal: 'stable life',
+          biggestBlock: ''
+        },
+        scores: {
+          physical: 5,
+          emotional: 5,
+          financial: 5,
+          social: 5,
+          occupational: 5,
+          spiritual: 5,
+          intellectual: 5,
+          environmental: 5
+        },
+        notes: {},
+        moods: [],
+        budget: { income: '', bills: '', debt: '', savings: '' },
+        checkins: []
+      };
+    }
+
+    let state = loadState();
+
+    function loadState() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return defaultState();
+      try {
+        return { ...defaultState(), ...JSON.parse(raw) };
+      } catch (e) {
+        return defaultState();
+      }
+    }
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function resetState() {
+      state = defaultState();
+      saveState();
+      render();
+      closeDrawer();
+      alert('Demo data reset.');
+    }
+
+    function averageScore() {
+      const values = Object.values(state.scores);
+      return (values.reduce((a, b) => a + Number(b), 0) / values.length).toFixed(1);
+    }
+
+    function bestDimension() {
+      let best = DIMENSIONS[0];
+      for (const d of DIMENSIONS) if (state.scores[d.id] > state.scores[best.id]) best = d;
+      return best;
+    }
+
+    function lowestDimension() {
+      let low = DIMENSIONS[0];
+      for (const d of DIMENSIONS) if (state.scores[d.id] < state.scores[low.id]) low = d;
+      return low;
+    }
+
+    function saveProfile() {
+      state.profile.userName = document.getElementById('userName').value.trim();
+      state.profile.mainGoal = document.getElementById('mainGoal').value;
+      state.profile.biggestBlock = document.getElementById('biggestBlock').value.trim();
+      saveState();
+      render();
+      alert('Profile saved.');
+    }
+
+    function setAllScores(val) {
+      DIMENSIONS.forEach(d => state.scores[d.id] = val);
+      saveState();
+      render();
+    }
+
+    function openDrawer(title, subtitle, html) {
+      document.getElementById('toolTitle').textContent = title;
+      document.getElementById('toolSubtitle').textContent = subtitle || '';
+      document.getElementById('toolContent').innerHTML = html;
+      document.getElementById('toolDrawer').classList.remove('hidden');
+      bindDrawerEvents();
+    }
+
+    function closeDrawer() {
+      document.getElementById('toolDrawer').classList.add('hidden');
+    }
+
+    function bindDrawerEvents() {
+      const scoreInputs = document.querySelectorAll('[data-score-id]');
+      scoreInputs.forEach(input => {
+        input.addEventListener('input', (e) => {
+          const id = e.target.dataset.scoreId;
+          state.scores[id] = Number(e.target.value);
+          saveState();
+          render();
+          const meter = document.querySelector('[data-live-score="' + id + '"]');
+          if (meter) meter.textContent = e.target.value + '/10';
+        });
+      });
+
+      const noteButtons = document.querySelectorAll('[data-save-note]');
+      noteButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.dataset.saveNote;
+          const textarea = document.querySelector('[data-note-field="' + id + '"]');
+          state.notes[id] = textarea.value;
+          saveState();
+          alert('Saved.');
+        });
+      });
+
+      const moodBtn = document.getElementById('saveMoodBtn');
+      if (moodBtn) {
+        moodBtn.addEventListener('click', () => {
+          const mood = document.getElementById('moodValue').value;
+          const note = document.getElementById('moodNote').value.trim();
+          state.moods.unshift({ date: new Date().toLocaleDateString(), mood, note });
+          state.moods = state.moods.slice(0, 7);
+          saveState();
+          openDimensionTool('emotional');
+        });
+      }
+
+      const saveBudgetBtn = document.getElementById('saveBudgetBtn');
+      if (saveBudgetBtn) {
+        saveBudgetBtn.addEventListener('click', () => {
+          state.budget.income = document.getElementById('income').value;
+          state.budget.bills = document.getElementById('bills').value;
+          state.budget.debt = document.getElementById('debt').value;
+          state.budget.savings = document.getElementById('savings').value;
+          saveState();
+          openDimensionTool('financial');
+        });
+      }
+
+      const saveCheckinBtn = document.getElementById('saveCheckinBtn');
+      if (saveCheckinBtn) {
+        saveCheckinBtn.addEventListener('click', () => {
+          const entry = {
+            date: new Date().toLocaleString(),
+            doing: document.getElementById('doingField').value,
+            energy: document.getElementById('energyField').value,
+            intention: document.getElementById('intentionField').value,
+            block: document.getElementById('blockField').value
+          };
+          state.checkins.unshift(entry);
+          state.checkins = state.checkins.slice(0, 10);
+          saveState();
+          alert('Daily check-in saved.');
+          closeDrawer();
+        });
+      }
+    }
+
+    function commonDimensionHeader(d) {
+      return `
+        <div class="notice success">
+          <strong>${d.name}:</strong> ${d.intro}
+        </div>
+        <div class="tool-card">
+          <label class="label">How is this area really doing right now?</label>
+          <input type="range" min="1" max="10" value="${state.scores[d.id]}" data-score-id="${d.id}" style="width:100%">
+          <div class="tiny">Current score: <strong data-live-score="${d.id}">${state.scores[d.id]}/10</strong></div>
+        </div>
+      `;
+    }
+
+    function openDimensionTool(id) {
+      const d = DIMENSIONS.find(x => x.id === id);
+      const noteValue = state.notes[id] || '';
+
+      if (id === 'emotional') {
+        const moodHistory = state.moods.length
+          ? state.moods.map(m => `<div class="checkline"><div><strong>${m.date}</strong><br>mood: ${m.mood}/10<br>${m.note || 'no note'}</div></div>`).join('')
+          : '<div class="tiny">No mood entries yet.</div>';
+
+        openDrawer(d.name + ' Tools', d.sub, `
+          ${commonDimensionHeader(d)}
+          <div class="tool-grid">
+            <div class="tool-card">
+              <h3>AI Recovery Companion</h3>
+              <div class="notice">Use guided prompts to help you process what feels heavy, confusing, or hard to hold alone.</div>
+              <div class="tag">Talk to me. What feels heaviest right now?</div>
+              <div class="tag">What changed?</div>
+              <div class="tag">What do you need tonight?</div>
+              <div class="tag">What is one thing you can control today?</div>
+            </div>
+            <div class="tool-card">
+              <h3>Mood Tracking</h3>
+              <label class="label">Mood 1 to 10</label>
+              <input class="input" type="number" id="moodValue" min="1" max="10" value="5">
+              <label class="label" style="margin-top:12px;">Quick note</label>
+              <textarea class="textarea" id="moodNote" placeholder="What happened today?"></textarea>
+              <button class="btn btn-primary" id="saveMoodBtn">Save Mood</button>
+            </div>
+            <div class="tool-card">
+              <h3>Peer Support Journal</h3>
+              <textarea class="textarea" data-note-field="emotional" placeholder="Let it out. No perfect words needed.">${noteValue}</textarea>
+              <button class="btn btn-secondary" data-save-note="emotional">Save Journal</button>
+            </div>
+            <div class="tool-card">
+              <h3>Recent Mood Entries</h3>
+              <div class="checklist">${moodHistory}</div>
+            </div>
+          </div>
+        `);
+        return;
+      }
+
+      if (id === 'financial') {
+        const income = Number(state.budget.income || 0);
+        const bills = Number(state.budget.bills || 0);
+        const debt = Number(state.budget.debt || 0);
+        const savings = Number(state.budget.savings || 0);
+        const leftover = income - bills - debt - savings;
+
+        openDrawer(d.name + ' Tools', d.sub, `
+          ${commonDimensionHeader(d)}
+          <div class="tool-grid">
+            <div class="tool-card">
+              <h3>Budget Planner</h3>
+              <label class="label">Monthly income</label>
+              <input class="input" id="income" type="number" value="${state.budget.income}">
+              <label class="label" style="margin-top:12px;">Monthly bills</label>
+              <input class="input" id="bills" type="number" value="${state.budget.bills}">
+              <label class="label" style="margin-top:12px;">Debt payment</label>
+              <input class="input" id="debt" type="number" value="${state.budget.debt}">
+              <label class="label" style="margin-top:12px;">Savings goal</label>
+              <input class="input" id="savings" type="number" value="${state.budget.savings}">
+              <button class="btn btn-primary" id="saveBudgetBtn" style="margin-top:14px;">Save Budget</button>
+            </div>
+            <div class="tool-card">
+              <h3>Money Snapshot</h3>
+              <div class="tag">Income: $${income}</div>
+              <div class="tag">Bills: $${bills}</div>
+              <div class="tag">Debt: $${debt}</div>
+              <div class="tag">Savings: $${savings}</div>
+              <div class="notice ${leftover >= 0 ? 'success' : 'danger'}" style="margin-top:12px;">
+                Left after plan: <strong>$${leftover}</strong>
+              </div>
+              <div class="tiny">Look at the real numbers without shame. Start where you are.</div>
+            </div>
+            <div class="tool-card">
+              <h3>Credit Repair Tool</h3>
+              <div class="notice">This section can hold your full credit repair tool later. For now, use it as a planning space.</div>
+              <ul class="list">
+                <li>Review report errors</li>
+                <li>Dispute letters</li>
+                <li>Utilization guidance</li>
+                <li>Payment reminder tracker</li>
+              </ul>
+            </div>
+            <div class="tool-card">
+              <h3>Financial Notes</h3>
+              <textarea class="textarea" data-note-field="financial" placeholder="What money move do you need to make this week?">${noteValue}</textarea>
+              <button class="btn btn-secondary" data-save-note="financial">Save Notes</button>
+            </div>
+          </div>
+        `);
+        return;
+      }
+
+      if (id === 'occupational') {
+        openDrawer(d.name + ' Tools', d.sub, `
+          ${commonDimensionHeader(d)}
+          <div class="tool-grid">
+            <div class="tool-card">
+              <h3>AI Skill Builder</h3>
+              <div class="notice">Pick one skill and build around it. Start small, stay consistent, and let it grow.</div>
+              <div class="tag">public speaking</div><div class="tag">networking</div><div class="tag">sales</div><div class="tag">writing</div><div class="tag">tech basics</div>
+            </div>
+            <div class="tool-card">
+              <h3>Career Path Planner</h3>
+              <ul class="list">
+                <li>What pays now?</li>
+                <li>What builds your future?</li>
+                <li>What can you learn free online?</li>
+                <li>What can you offer people this month?</li>
+              </ul>
+            </div>
+            <div class="tool-card">
+              <h3>Resume Generator</h3>
+              <div class="notice">Use this space to collect your strengths, wins, and work history.</div>
+              <textarea class="textarea" data-note-field="occupational" placeholder="Write your strengths, wins, and work history here.">${noteValue}</textarea>
+              <button class="btn btn-secondary" data-save-note="occupational">Save Resume Notes</button>
+            </div>
+            <div class="tool-card">
+              <h3>Weekly Work Focus</h3>
+              <div class="tag">stabilize income</div>
+              <div class="tag">learn one skill</div>
+              <div class="tag">update resume</div>
+              <div class="tag">apply to 3 roles</div>
+              <div class="tag">build your own thing slowly</div>
+            </div>
+          </div>
+        `);
+        return;
+      }
+
+      if (id === 'social') {
+        openDrawer(d.name + ' Tools', d.sub, `
+          ${commonDimensionHeader(d)}
+          <div class="tool-grid">
+            <div class="tool-card">
+              <h3>AI Community Builder</h3>
+              <div class="notice">Think about the kind of people, values, and energy you want around you.</div>
+              <textarea class="textarea" data-note-field="social" placeholder="Who do you want around you? What kind of people? What values?">${noteValue}</textarea>
+              <button class="btn btn-secondary" data-save-note="social">Save Community Notes</button>
+            </div>
+            <div class="tool-card">
+              <h3>Group Challenges</h3>
+              <ul class="list">
+                <li>7 days of showing up</li>
+                <li>3 honest check-ins</li>
+                <li>1 boundary this week</li>
+                <li>2 meaningful conversations</li>
+              </ul>
+            </div>
+            <div class="tool-card">
+              <h3>Accountability Circle</h3>
+              <div class="tiny">This can become real groups, text check-ins, circles, or community spaces over time.</div>
+              <div class="tag">weekly call</div><div class="tag">text check-in</div><div class="tag">shared goal</div><div class="tag">no judgment</div>
+            </div>
+            <div class="tool-card">
+              <h3>Relationship Reflection</h3>
+              <ul class="list">
+                <li>Who drains you?</li>
+                <li>Who supports you?</li>
+                <li>Where do you need boundaries?</li>
+                <li>Who do you need to reconnect with?</li>
+              </ul>
+            </div>
+          </div>
+        `);
+        return;
+      }
+
+      if (id === 'spiritual') {
+        openDrawer(d.name + ' Tools', d.sub, `
+          ${commonDimensionHeader(d)}
+          <div class="tool-grid">
+            <div class="tool-card">
+              <h3>Reflection Prompts</h3>
+              <ul class="list">
+                <li>When did I feel most like myself?</li>
+                <li>What am I craving more of?</li>
+                <li>What no longer fits me?</li>
+                <li>What would make life feel meaningful again?</li>
+              </ul>
+            </div>
+            <div class="tool-card">
+              <h3>Gratitude System</h3>
+              <textarea class="textarea" data-note-field="spiritual" placeholder="Write 3 things you are grateful for.">${noteValue}</textarea>
+              <button class="btn btn-secondary" data-save-note="spiritual">Save Gratitude</button>
+            </div>
+            <div class="tool-card">
+              <h3>Purpose Exploration</h3>
+              <div class="tag">what matters</div><div class="tag">what hurts</div><div class="tag">what you care about</div><div class="tag">what you want to build</div>
+            </div>
+            <div class="tool-card">
+              <h3>Growth Space</h3>
+              <div class="tiny">This area can keep growing into deeper reflection tools, life-story work, and personal guidance.</div>
+            </div>
+          </div>
+        `);
+        return;
+      }
+
+      if (id === 'physical') {
+        openDrawer(d.name + ' Tools', d.sub, `
+          ${commonDimensionHeader(d)}
+          <div class="tool-grid">
+            <div class="tool-card">
+              <h3>Habit Tracker</h3>
+              <div class="tag">sleep</div><div class="tag">water</div><div class="tag">food</div><div class="tag">movement</div><div class="tag">rest</div>
+            </div>
+            <div class="tool-card">
+              <h3>Wellness Challenges</h3>
+              <ul class="list">
+                <li>Drink water first thing</li>
+                <li>Walk 10 minutes</li>
+                <li>Stretch 5 minutes</li>
+                <li>Eat one real meal</li>
+              </ul>
+            </div>
+            <div class="tool-card">
+              <h3>Routine Builder</h3>
+              <textarea class="textarea" data-note-field="physical" placeholder="What does your morning or night routine need?">${noteValue}</textarea>
+              <button class="btn btn-secondary" data-save-note="physical">Save Routine</button>
+            </div>
+            <div class="tool-card">
+              <h3>Support This Area</h3>
+              <div class="tiny">Keep it simple. Focus on the basics that help your body feel steadier and more supported.</div>
+            </div>
+          </div>
+        `);
+        return;
+      }
+
+      if (id === 'intellectual') {
+        openDrawer(d.name + ' Tools', d.sub, `
+          ${commonDimensionHeader(d)}
+          <div class="tool-grid">
+            <div class="tool-card">
+              <h3>Learning Tracker</h3>
+              <textarea class="textarea" data-note-field="intellectual" placeholder="What are you learning right now?">${noteValue}</textarea>
+              <button class="btn btn-secondary" data-save-note="intellectual">Save Learning Notes</button>
+            </div>
+            <div class="tool-card">
+              <h3>Curiosity Prompts</h3>
+              <ul class="list">
+                <li>What topic keeps pulling at me?</li>
+                <li>What could I learn for free this month?</li>
+                <li>What do I want to understand better?</li>
+                <li>What would make me feel sharper?</li>
+              </ul>
+            </div>
+            <div class="tool-card">
+              <h3>Book Club Discussions</h3>
+              <div class="tag">book notes</div><div class="tag">quotes</div><div class="tag">questions</div><div class="tag">takeaways</div>
+            </div>
+            <div class="tool-card">
+              <h3>Keep Growing</h3>
+              <div class="tiny">Learning does not have to be perfect or formal. It just has to keep you expanding.</div>
+            </div>
+          </div>
+        `);
+        return;
+      }
+
+      if (id === 'environmental') {
+        openDrawer(d.name + ' Tools', d.sub, `
+          ${commonDimensionHeader(d)}
+          <div class="tool-grid">
+            <div class="tool-card">
+              <h3>Home Organization Tools</h3>
+              <ul class="list">
+                <li>What room stresses you out most?</li>
+                <li>What can you clear in 10 minutes?</li>
+                <li>What space needs a reset?</li>
+              </ul>
+            </div>
+            <div class="tool-card">
+              <h3>Lifestyle Planning</h3>
+              <textarea class="textarea" data-note-field="environmental" placeholder="What kind of environment helps you feel calm, focused, and stable?">${noteValue}</textarea>
+              <button class="btn btn-secondary" data-save-note="environmental">Save Lifestyle Notes</button>
+            </div>
+            <div class="tool-card">
+              <h3>Living Situation Tracker</h3>
+              <div class="tag">safety</div><div class="tag">cleanliness</div><div class="tag">noise</div><div class="tag">privacy</div><div class="tag">peace</div>
+            </div>
+            <div class="tool-card">
+              <h3>Support Your Space</h3>
+              <div class="tiny">Your environment affects everything. Even a small reset can shift your energy.</div>
+            </div>
+          </div>
+        `);
+        return;
+      }
+    }
+
+    function openDailyCheckin() {
+      const recent = state.checkins.length
+        ? state.checkins.map(c => `<div class="checkline"><div><strong>${c.date}</strong><br>doing: ${c.doing}<br>energy: ${c.energy}<br>intention: ${c.intention}<br>block: ${c.block}</div></div>`).join('')
+        : '<div class="tiny">No check-ins saved yet.</div>';
+
+      openDrawer('Daily Check-In', 'Use this every day to stay honest with yourself.', `
+        <div class="tool-grid">
+          <div class="tool-card">
+            <label class="label">How are you really doing 1 to 10?</label>
+            <input class="input" id="doingField" type="number" min="1" max="10" value="5">
+            <label class="label" style="margin-top:12px;">Energy 1 to 10</label>
+            <input class="input" id="energyField" type="number" min="1" max="10" value="5">
+            <label class="label" style="margin-top:12px;">One thing that would make today worth it</label>
+            <textarea class="textarea" id="intentionField"></textarea>
+            <label class="label" style="margin-top:12px;">What is in your way?</label>
+            <textarea class="textarea" id="blockField"></textarea>
+            <button class="btn btn-primary" id="saveCheckinBtn">Save Daily Check-In</button>
+          </div>
+          <div class="tool-card">
+            <h3>Recent Check-Ins</h3>
+            <div class="checklist">${recent}</div>
+          </div>
+        </div>
+      `);
+    }
+
+    function render() {
+      document.getElementById('userName').value = state.profile.userName || '';
+      document.getElementById('mainGoal').value = state.profile.mainGoal || 'stable life';
+      document.getElementById('biggestBlock').value = state.profile.biggestBlock || '';
+
+      document.getElementById('avgScore').textContent = averageScore() + '/10';
+      document.getElementById('bestDimension').textContent = bestDimension().name;
+      document.getElementById('lowestDimension').textContent = lowestDimension().name;
+      document.getElementById('goalText').textContent = state.profile.mainGoal || '—';
+
+      const grid = document.getElementById('dimensionGrid');
+      grid.innerHTML = DIMENSIONS.map(d => {
+        const score = Number(state.scores[d.id]);
+        return `
+          <div class="dimension-card">
+            <div class="dimension-top">
+              <div class="dimension-title">
+                <div class="dimension-emoji">${d.emoji}</div>
+                <div>
+                  <div class="dimension-name">${d.name}</div>
+                  <div class="dimension-sub">${d.sub}</div>
+                </div>
+              </div>
+              <div class="score-badge">${score}/10</div>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" style="width:${score * 10}%;background:${d.color};"></div>
+            </div>
+            <div class="tiny">${d.intro}</div>
+            <div>
+              ${d.tools.slice(0,3).map(t => `<span class="tag">${t}</span>`).join('')}
+            </div>
+            <div class="dimension-actions">
+              <button class="ghost-btn" onclick="openDimensionTool('${d.id}')">Open Tools</button>
+              <button class="ghost-btn" onclick="quickRaise('${d.id}')">+1</button>
+              <button class="ghost-btn" onclick="quickLower('${d.id}')">-1</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function quickRaise(id) {
+      state.scores[id] = Math.min(10, Number(state.scores[id]) + 1);
+      saveState();
+      render();
+    }
+
+    function quickLower(id) {
+      state.scores[id] = Math.max(1, Number(state.scores[id]) - 1);
+      saveState();
+      render();
+    }
+
+    document.getElementById('saveProfileBtn').addEventListener('click', saveProfile);
+    document.getElementById('setBalancedBtn').addEventListener('click', () => setAllScores(5));
+    document.getElementById('closeDrawerBtn').addEventListener('click', closeDrawer);
+    document.getElementById('dailyCheckinBtn').addEventListener('click', openDailyCheckin);
+    document.getElementById('startSetupBtn').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    document.getElementById('resetAllBtn').addEventListener('click', resetState);
+    document.getElementById('toolDrawer').addEventListener('click', (e) => {
+      if (e.target.id === 'toolDrawer') closeDrawer();
+    });
+
+    render();
+  </script>
+</body>
+</html>
