@@ -1440,8 +1440,8 @@ You always end with one clear next step or something that gives them a little st
     function openChatDrawer() {
       document.getElementById('chatDrawer').classList.remove('hidden');
 
-      if (chatHistory.length === 0) {
-        addChatMessage('assistant', 'Alright. Talk to me. What is going on right now?');
+      if (chatHistory.length === 0 && document.getElementById('chatMessages').children.length === 0) {
+        addChatMessage('assistant', 'Alright. Talk to me. What is going on right now?', false);
       }
     }
 
@@ -1449,8 +1449,10 @@ You always end with one clear next step or something that gives them a little st
       document.getElementById('chatDrawer').classList.add('hidden');
     }
 
-    function addChatMessage(role, text) {
-      chatHistory.push({ role, content: text });
+    function addChatMessage(role, text, saveToHistory = true) {
+      if (saveToHistory) {
+        chatHistory.push({ role, content: text });
+      }
 
       const wrap = document.getElementById('chatMessages');
       const bubble = document.createElement('div');
@@ -1465,21 +1467,20 @@ You always end with one clear next step or something that gives them a little st
       const text = input.value.trim();
       if (!text) return;
 
-      addChatMessage('user', text);
+      addChatMessage('user', text, true);
       input.value = '';
 
       try {
         const reply = await askGrace(chatHistory);
-        addChatMessage('assistant', reply);
+        addChatMessage('assistant', reply, true);
       } catch (err) {
-        addChatMessage('assistant', 'Something went wrong connecting to G.R.A.C.E. We will fix it.');
+        addChatMessage('assistant', 'Something went wrong connecting to G.R.A.C.E. We will fix it.', false);
         console.error(err);
       }
     }
 
     async function askGrace(messages) {
-      const res = await fetch('
-grace-chat-worker.getrightandconquer.workers.dev', {
+      const res = await fetch('https://grace-chat-worker.getrightandconquer.workers.dev', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -1489,6 +1490,11 @@ grace-chat-worker.getrightandconquer.workers.dev', {
           messages
         })
       });
+
+      if (!res.ok) {
+        const errorText = await res.text();
+        throw new Error('Worker error: ' + errorText);
+      }
 
       const data = await res.json();
       return data.reply || 'Something went wrong. Try again.';
