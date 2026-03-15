@@ -70,17 +70,15 @@
       gap: 14px;
     }
 
-    .orb {
+    .logo-img {
       width: 48px;
       height: 48px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, #fff 0%, var(--lav) 15%, var(--purple) 45%, var(--pink) 100%);
-      box-shadow: 0 0 24px rgba(156,114,200,.55), 0 0 50px rgba(194,24,91,.25);
-      animation: pulse 4s ease-in-out infinite;
+      object-fit: contain;
+      border-radius: 10px;
+      background: #120d18;
+      padding: 4px;
+      box-shadow: 0 0 18px rgba(156,114,200,.35);
     }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
       50% { transform: scale(1.04); }
     }
 
@@ -474,7 +472,7 @@
   <div class="app-shell">
     <header class="topbar">
       <div class="brand">
-        <div class="orb" aria-hidden="true"></div>
+        <img src="logo.png" alt="G.R.A.C.E. Logo" class="logo-img">
         <div>
           <div class="brand-title">G.R.A.C.E.</div>
           <div class="brand-sub">Get Right And Conquer Everything</div>
