@@ -1,447 +1,1222 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>G.R.A.C.E. | Life Direction, Wellness Check-Ins, and Peer Support</title>
+  <meta
+    name="description"
+    content="G.R.A.C.E. helps people who feel stuck, overwhelmed, or off track reconnect with themselves using the 8 dimensions of wellness, reflection tools, and peer-led support."
+  />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://getrightandconquereverything.org" />
 
-<title>G.R.A.C.E. | Life Direction & 8 Dimensions of Wellness Check-In</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
 
-<meta name="description" content="G.R.A.C.E. helps people who feel stuck get back on track using a life direction platform built around the 8 dimensions of wellness. Check in honestly, see what needs attention, and take practical steps forward.">
+  <style>
+    :root {
+      --bg: #080610;
+      --bg-soft: #100b17;
+      --panel: #120d18;
+      --panel-2: #171021;
+      --line: #2b1d3d;
+      --line-soft: rgba(255, 255, 255, 0.08);
+      --text: #f3edf8;
+      --muted: #b4a6c5;
+      --muted-2: #8f7ca6;
+      --pink: #c2185b;
+      --purple: #9c72c8;
+      --purple-soft: rgba(156, 114, 200, 0.15);
+      --success: #7dd3a7;
+      --warning: #f7c66f;
+      --danger: #ff8b9e;
+      --radius: 22px;
+      --radius-sm: 16px;
+      --shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
+      --max: 1200px;
+    }
 
-<meta name="robots" content="index,follow">
-<link rel="canonical" href="https://getrightandconquereverything.org">
+    * {
+      box-sizing: border-box;
+    }
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    html {
+      scroll-behavior: smooth;
+    }
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: "DM Sans", sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(80, 41, 124, 0.35) 0%, rgba(8, 6, 16, 0.9) 30%),
+        linear-gradient(180deg, #0a0610 0%, #080610 100%);
+    }
 
-<style>
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-:root{
---bg:#080610;
---panel:#120d18;
---line:#2b1d3d;
---text:#f3edf8;
---muted:#a08fb5;
---pink:#c2185b;
---purple:#9c72c8;
---shadow:0 18px 60px rgba(0,0,0,.35);
---radius:22px;
-}
+    img {
+      max-width: 100%;
+      display: block;
+    }
 
-*{box-sizing:border-box}
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
 
-html,body{
-margin:0;
-background:radial-gradient(circle at top,#181028 0%,var(--bg) 40%);
-color:var(--text);
-font-family:'DM Sans',sans-serif;
-}
+    .app {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 24px;
+    }
 
-a{text-decoration:none;color:inherit}
+    .topbar {
+      position: sticky;
+      top: 12px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 14px 18px;
+      margin-bottom: 34px;
+      border: 1px solid var(--line-soft);
+      border-radius: 20px;
+      background: rgba(15, 10, 23, 0.9);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+    }
 
-.app{
-max-width:1200px;
-margin:auto;
-padding:24px;
-}
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
 
-.topbar{
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:20px;
-padding:14px 20px;
-border-radius:20px;
-background:#0f0a17;
-border:1px solid rgba(255,255,255,.07);
-box-shadow:var(--shadow);
-position:sticky;
-top:10px;
-z-index:50;
-}
+    .logo-wrap {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(194, 24, 91, 0.18), rgba(156, 114, 200, 0.22));
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      flex-shrink: 0;
+    }
 
-.brand{
-display:flex;
-align-items:center;
-gap:12px;
-}
+    .logo {
+      width: 34px;
+      height: 34px;
+      object-fit: contain;
+    }
 
-.logo{
-width:44px;
-height:44px;
-object-fit:contain;
-}
+    .brand-copy {
+      min-width: 0;
+    }
 
-.brand-title{
-font-family:'Cormorant Garamond',serif;
-font-size:30px;
-letter-spacing:.12em;
-background:linear-gradient(135deg,var(--pink),var(--purple));
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
+    .brand-title {
+      margin: 0;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 30px;
+      line-height: 1;
+      letter-spacing: 0.12em;
+      background: linear-gradient(135deg, var(--pink), var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-.nav{
-display:flex;
-gap:18px;
-font-size:14px;
-color:var(--muted);
-}
+    .brand-sub {
+      margin: 4px 0 0;
+      font-size: 12px;
+      color: var(--muted-2);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
 
-.hero{
-margin-top:40px;
-display:grid;
-grid-template-columns:1.2fr .8fr;
-gap:28px;
-}
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 16px;
+      font-size: 14px;
+      color: var(--muted);
+    }
 
-.card{
-background:linear-gradient(180deg,rgba(18,13,24,.95),rgba(13,9,18,.97));
-border:1px solid rgba(255,255,255,.06);
-border-radius:var(--radius);
-padding:26px;
-box-shadow:var(--shadow);
-}
+    .nav a {
+      transition: color 0.2s ease;
+    }
 
-.hero h1{
-font-family:'Cormorant Garamond',serif;
-font-size:58px;
-line-height:1;
-margin:0 0 14px;
-}
+    .nav a:hover {
+      color: #fff;
+    }
 
-.hero p{
-color:var(--muted);
-line-height:1.7;
-font-size:18px;
-}
+    .hero {
+      display: grid;
+      grid-template-columns: 1.12fr 0.88fr;
+      gap: 28px;
+      align-items: stretch;
+    }
 
-.cta-row{
-display:flex;
-gap:14px;
-margin-top:20px;
-}
+    .card {
+      background: linear-gradient(180deg, rgba(18, 13, 24, 0.96), rgba(11, 8, 17, 0.98));
+      border: 1px solid var(--line-soft);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
 
-.btn{
-border:none;
-padding:12px 18px;
-border-radius:14px;
-cursor:pointer;
-font-weight:600;
-}
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 18px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #f8d8e8;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.03);
+    }
 
-.btn-primary{
-background:linear-gradient(135deg,var(--pink),var(--purple));
-color:white;
-}
+    .hero h1 {
+      margin: 0 0 16px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 62px;
+      line-height: 0.96;
+      letter-spacing: -0.02em;
+    }
 
-.btn-secondary{
-background:#1a1325;
-border:1px solid var(--line);
-color:white;
-}
+    .hero p {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.75;
+      color: var(--muted);
+    }
 
-.section{
-margin-top:60px;
-}
+    .hero strong,
+    .section strong {
+      color: #fff;
+    }
 
-.section h2{
-font-family:'Cormorant Garamond',serif;
-font-size:36px;
-margin-bottom:12px;
-}
+    .hero-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 24px 0 0;
+      padding: 0;
+      list-style: none;
+    }
 
-.grid-3{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:20px;
-}
+    .hero-list li {
+      padding: 14px 14px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.5;
+    }
 
-.mini{
-background:rgba(255,255,255,.03);
-border:1px solid rgba(255,255,255,.06);
-border-radius:18px;
-padding:20px;
-}
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 24px;
+    }
 
-.footer{
-margin-top:70px;
-padding:30px;
-border-radius:20px;
-background:rgba(255,255,255,.03);
-border:1px solid rgba(255,255,255,.06);
-color:var(--muted);
-}
+    .btn {
+      appearance: none;
+      border: none;
+      border-radius: 14px;
+      padding: 13px 18px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: transform 0.18s ease, opacity 0.18s ease, border-color 0.18s ease;
+    }
 
-.footer a{
-color:white;
-}
+    .btn:hover {
+      transform: translateY(-1px);
+    }
 
-@media(max-width:900px){
+    .btn-primary {
+      color: white;
+      background: linear-gradient(135deg, var(--pink), var(--purple));
+    }
 
-.hero{
-grid-template-columns:1fr;
-}
+    .btn-secondary {
+      color: white;
+      background: #1a1325;
+      border: 1px solid var(--line);
+    }
 
-.grid-3{
-grid-template-columns:1fr;
-}
+    .btn-ghost {
+      color: var(--muted);
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
 
-}
+    .trust-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
 
-</style>
+    .trust-pill {
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .setup-title {
+      margin: 0 0 8px;
+      font-size: 24px;
+    }
+
+    .setup-copy {
+      margin: 0 0 20px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .field {
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .field span {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .input,
+    .select,
+    .textarea {
+      width: 100%;
+      padding: 13px 14px;
+      border-radius: 14px;
+      background: #0d0913;
+      color: white;
+      border: 1px solid #2b1d3d;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .input:focus,
+    .select:focus,
+    .textarea:focus {
+      border-color: #7b52ab;
+      box-shadow: 0 0 0 3px rgba(156, 114, 200, 0.15);
+    }
+
+    .textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .help-text {
+      margin-top: 8px;
+      font-size: 13px;
+      color: var(--muted-2);
+      line-height: 1.6;
+    }
+
+    .result-box {
+      display: none;
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 16px;
+      background: rgba(125, 211, 167, 0.08);
+      border: 1px solid rgba(125, 211, 167, 0.22);
+      color: #eafbf1;
+      line-height: 1.7;
+    }
+
+    .section {
+      margin-top: 64px;
+    }
+
+    .section-head {
+      max-width: 800px;
+      margin-bottom: 22px;
+    }
+
+    .section-head h2 {
+      margin: 0 0 10px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 40px;
+      line-height: 1.05;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 16px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .mini {
+      height: 100%;
+      padding: 22px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .mini h3 {
+      margin: 0 0 10px;
+      font-size: 20px;
+    }
+
+    .mini p,
+    .mini li {
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 15px;
+    }
+
+    .mini ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .mini li + li {
+      margin-top: 8px;
+    }
+
+    .about-quote {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 34px;
+      line-height: 1.2;
+      margin: 0 0 14px;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .timeline-item {
+      padding: 18px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .timeline-item strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 15px;
+      color: #fff;
+    }
+
+    .dimension-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dimension-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -40px -40px auto;
+      width: 110px;
+      height: 110px;
+      background: radial-gradient(circle, rgba(156, 114, 200, 0.18), transparent 65%);
+      pointer-events: none;
+    }
+
+    .dimension-tag {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--purple-soft);
+      color: #e9dcf9;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .journey-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .journey-step {
+      padding: 22px;
+      border-radius: 20px;
+      background: linear-gradient(180deg, rgba(17, 12, 24, 0.98), rgba(13, 9, 18, 0.98));
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: var(--shadow);
+    }
+
+    .journey-number {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 14px;
+      border-radius: 999px;
+      font-weight: 700;
+      color: white;
+      background: linear-gradient(135deg, var(--pink), var(--purple));
+    }
+
+    .feature-callout {
+      margin-top: 24px;
+      padding: 22px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(194, 24, 91, 0.12), rgba(156, 114, 200, 0.1));
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .feature-callout h3 {
+      margin: 0 0 10px;
+      font-size: 22px;
+    }
+
+    .feature-callout p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .cta-panel {
+      text-align: left;
+    }
+
+    .cta-panel h2 {
+      margin-top: 0;
+    }
+
+    .footer {
+      margin-top: 70px;
+      padding: 28px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: var(--muted);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+    }
+
+    .footer h3,
+    .footer h4 {
+      margin-top: 0;
+      color: #fff;
+    }
+
+    .footer p {
+      line-height: 1.8;
+    }
+
+    .footer a {
+      color: white;
+    }
+
+    .small-note {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--muted-2);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.45s ease, transform 0.45s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 980px) {
+      .hero,
+      .grid-2,
+      .grid-3,
+      .journey-grid,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 48px;
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .topbar {
+        padding: 14px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .app {
+        padding: 16px;
+      }
+
+      .card,
+      .mini,
+      .journey-step,
+      .footer {
+        padding: 20px;
+      }
+
+      .hero h1 {
+        font-size: 42px;
+      }
+
+      .section-head h2 {
+        font-size: 34px;
+      }
+
+      .hero-list {
+        grid-template-columns: 1fr;
+      }
+
+      .brand-title {
+        font-size: 25px;
+      }
+    }
+  </style>
 </head>
-
 <body>
-
-<div class="app">
-
-<header class="topbar">
-
-<div class="brand">
-<img src="logo.PNG" class="logo" alt="G.R.A.C.E. Logo">
-<div class="brand-title">G.R.A.C.E.</div>
-</div>
-
-<nav class="nav">
-<a href="#about">About</a>
-<a href="#how">How It Works</a>
-<a href="#dimensions">8 Dimensions</a>
-<a href="#tools">Tools</a>
-</nav>
-
-</header>
-
-<section class="hero">
-
-<div class="card">
-
-<h1>Get clear. Get balanced. Get back on track.</h1>
-
-<p>
-G.R.A.C.E. is a life direction platform for people trying to rebuild their life, find balance, and move forward with clarity.  
-Use the 8 dimensions of wellness to check in honestly, see where your life stands, and start taking real steps forward.
-</p>
-
-<div class="cta-row">
-<button class="btn btn-primary" id="startSetupBtn">Start Your Check-In</button>
-<button class="btn btn-secondary" id="openGraceChatBtn">Talk to G.R.A.C.E.</button>
-</div>
-
-</div>
-
-<div class="card">
-
-<h3>Quick Setup</h3>
-
-<label>What should G.R.A.C.E. call you?</label>
-<input id="userName" style="width:100%;padding:10px;margin-top:6px;border-radius:10px;background:#0c0912;color:white;border:1px solid #2b1d3d">
-
-<label style="margin-top:16px">Main goal right now</label>
-
-<select id="mainGoal" style="width:100%;padding:10px;margin-top:6px;border-radius:10px;background:#0c0912;color:white;border:1px solid #2b1d3d">
-
-<option>Get stable</option>
-<option>Feel more balanced</option>
-<option>Get my life together</option>
-<option>Find direction</option>
-<option>Build better habits</option>
-<option>Improve my mental and emotional well-being</option>
-<option>Get back on track financially</option>
-
-</select>
-
-<label style="margin-top:16px">Biggest block right now</label>
-
-<textarea id="biggestBlock" style="width:100%;padding:10px;margin-top:6px;border-radius:10px;background:#0c0912;color:white;border:1px solid #2b1d3d"></textarea>
-
-<div style="font-size:13px;color:#6f5d85;margin-top:6px">
-Examples: anxiety, burnout, money stress, no structure, feeling lost, relationship stress
-</div>
-
-<button class="btn btn-primary" style="margin-top:16px" id="saveProfileBtn">
-Start My Check-In
-</button>
-
-</div>
-
-</section>
-
-<section class="section" id="about">
-
-<h2>About G.R.A.C.E.</h2>
-
-<div class="card">
-
-<p><strong>G.R.A.C.E.</strong> stands for <strong>Get Right And Conquer Everything.</strong></p>
-
-<p>
-G.R.A.C.E. was created from real life experience. It was built for people trying to get back on track, find balance, and build a life that feels more aligned with who they really are.
-</p>
-
-<p>
-Instead of focusing on one problem at a time, G.R.A.C.E. helps people look at the full picture of their life using the 8 dimensions of wellness — giving them a clearer understanding of what is strong, what needs attention, and where they may want to focus next.
-</p>
-
-</div>
-
-</section>
-
-<section class="section" id="how">
-
-<h2>How G.R.A.C.E. Works</h2>
-
-<div class="grid-3">
-
-<div class="mini">
-<h3>Check in honestly</h3>
-<p>
-Understand where your life actually stands across the 8 dimensions of wellness.
-</p>
-</div>
-
-<div class="mini">
-<h3>See what needs attention</h3>
-<p>
-Your dashboard helps you quickly see which areas are strong and which ones may need support.
-</p>
-</div>
-
-<div class="mini">
-<h3>Take one real step forward</h3>
-<p>
-Use practical tools, reflection prompts, and guidance to start building momentum.
-</p>
-</div>
-
-</div>
-
-</section>
-
-<section class="section" id="tools">
-
-<h2>What You Can Start Using Right Now</h2>
-
-<div class="grid-3">
-
-<div class="mini">
-<h3>Available Now</h3>
-<ul>
-<li>8 Dimensions Dashboard</li>
-<li>Daily check-ins</li>
-<li>Reflection prompts</li>
-<li>Mood tracking</li>
-<li>Habit tracking</li>
-<li>Budget tools</li>
-</ul>
-</div>
-
-<div class="mini">
-<h3>Growing Into</h3>
-<ul>
-<li>Personalized recommendations</li>
-<li>Progress tracking</li>
-<li>Community support features</li>
-<li>Structured life planning tools</li>
-</ul>
-</div>
-
-<div class="mini">
-<h3>Bigger Vision</h3>
-<ul>
-<li>AI Life Navigation System</li>
-<li>AI Recovery Companion</li>
-<li>AI Decision Coach</li>
-<li>AI Event Builder</li>
-</ul>
-</div>
-
-</div>
-
-</section>
-
-<section class="section">
-
-<h2>Who This Helps</h2>
-
-<div class="grid-3">
-
-<div class="mini">
-<h3>People dealing with overwhelm</h3>
-<p>
-When life feels heavy and hard to organize, G.R.A.C.E. helps you slow things down and see the bigger picture.
-</p>
-</div>
-
-<div class="mini">
-<h3>People rebuilding their life</h3>
-<p>
-For people in transition who are trying to stabilize, reset, and move forward again.
-</p>
-</div>
-
-<div class="mini">
-<h3>People searching for direction</h3>
-<p>
-For those who feel stuck or uncertain about where their life is going and want a clearer path forward.
-</p>
-</div>
-
-</div>
-
-</section>
-
-<section class="section">
-
-<div class="card">
-
-<h2>Ready to start getting your life back on track?</h2>
-
-<p>
-Take your first G.R.A.C.E. check-in and see where your life stands across the 8 dimensions of wellness.
-</p>
-
-<div class="cta-row">
-<button class="btn btn-primary" id="startSetupBtn2">Start Your Check-In</button>
-<button class="btn btn-secondary" id="openGraceChatBtn2">Talk to G.R.A.C.E.</button>
-</div>
-
-</div>
-
-</section>
-
-<footer class="footer">
-
-<p>
-<strong>Founder Note</strong><br>
-G.R.A.C.E. was created from real life experience. It was built for people trying to get back on track, find balance, and build a life that feels more aligned with who they really are.
-</p>
-
-<p style="margin-top:16px">
-
-Instagram:  
-<a href="https://instagram.com/getrightandconquereverything">@getrightandconquereverything</a>
-
-<br><br>
-
-Email:  
-<a href="mailto:info@getrightandconquereverything.org">info@getrightandconquereverything.org</a>
-
-</p>
-
-<p style="margin-top:20px;font-size:13px">
-
-G.R.A.C.E. offers guidance and reflection tools.  
-It is not therapy, crisis care, or medical advice.
-
-</p>
-
-</footer>
-
-</div>
-
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo-wrap">
+          <img src="logo.PNG" class="logo" alt="G.R.A.C.E. logo" />
+        </div>
+        <div class="brand-copy">
+          <h2 class="brand-title">G.R.A.C.E.</h2>
+          <p class="brand-sub">Get Right And Conquer Everything</p>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#journey">How It Works</a>
+        <a href="#dimensions">8 Dimensions</a>
+        <a href="#tools">Tools</a>
+        <a href="#community">Community</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="card reveal">
+        <div class="eyebrow">Peer-led support • reflection • life direction</div>
+
+        <h1>When life feels off track, start with one honest check-in.</h1>
+
+        <p>
+          <strong>G.R.A.C.E.</strong> is a peer-led platform built for people who feel
+          overwhelmed, stuck, disconnected, or unsure what to do next.
+          Instead of pretending everything is fine, you get a space to pause,
+          look at the full picture of your life, and start moving forward with
+          more clarity.
+        </p>
+
+        <p style="margin-top:14px;">
+          We use the <strong>8 dimensions of wellness</strong> to help you understand
+          what feels strong, what feels neglected, and where support or structure
+          may help most right now.
+        </p>
+
+        <ul class="hero-list">
+          <li><strong>Check in honestly</strong><br />See where you are without judgment.</li>
+          <li><strong>Find your focus</strong><br />Stop guessing what needs attention first.</li>
+          <li><strong>Take practical steps</strong><br />Use reflection, tracking, and support tools.</li>
+          <li><strong>Build momentum</strong><br />Start small and keep moving forward.</li>
+        </ul>
+
+        <div class="cta-row">
+          <button class="btn btn-primary" id="startSetupBtn">Start Your Check-In</button>
+          <button class="btn btn-secondary" id="openGraceChatBtn">Talk to G.R.A.C.E.</button>
+          <a class="btn btn-ghost" href="#about">Learn More</a>
+        </div>
+
+        <div class="trust-row">
+          <div class="trust-pill">Built from lived experience</div>
+          <div class="trust-pill">Centered on the full picture of life</div>
+          <div class="trust-pill">Designed for real reflection and real change</div>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <h3 class="setup-title">Start with a quick setup</h3>
+        <p class="setup-copy">
+          This is a simple first step. Tell us what to call you, what you want most
+          right now, and what feels hardest. Then G.R.A.C.E. will guide you to your
+          next step.
+        </p>
+
+        <label class="field">
+          <span>What should G.R.A.C.E. call you?</span>
+          <input
+            id="userName"
+            class="input"
+            type="text"
+            placeholder="Your name or nickname"
+          />
+        </label>
+
+        <label class="field">
+          <span>Main goal right now</span>
+          <select id="mainGoal" class="select">
+            <option value="">Choose one</option>
+            <option>Get stable</option>
+            <option>Feel more balanced</option>
+            <option>Get my life together</option>
+            <option>Find direction</option>
+            <option>Build better habits</option>
+            <option>Improve my mental and emotional well-being</option>
+            <option>Get back on track financially</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Biggest block right now</span>
+          <textarea
+            id="biggestBlock"
+            class="textarea"
+            placeholder="Examples: anxiety, burnout, money stress, no structure, relationship stress, feeling lost"
+          ></textarea>
+        </label>
+
+        <div class="help-text">
+          You do not need to have everything figured out. This is just a starting point.
+        </div>
+
+        <div class="cta-row">
+          <button class="btn btn-primary" id="saveProfileBtn">Start My Check-In</button>
+          <button class="btn btn-secondary" id="jumpToToolsBtn">See the Tools</button>
+        </div>
+
+        <div class="result-box" id="profileResult" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="section-head reveal">
+        <h2>About G.R.A.C.E.</h2>
+        <p>
+          G.R.A.C.E. stands for <strong>Get Right And Conquer Everything.</strong>
+          It was not built from theory alone. It came from real life, real setbacks,
+          real reflection, and the belief that people deserve support that helps them
+          understand their whole life, not just one issue at a time.
+        </p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card reveal">
+          <p class="about-quote">
+            G.R.A.C.E. is for people trying to rebuild, refocus, and reconnect with who they are.
+          </p>
+
+          <p style="color:var(--muted); line-height:1.85;">
+            A lot of people know something feels off, but they cannot always explain why.
+            Maybe their routines are falling apart. Maybe they feel emotionally drained.
+            Maybe they are tired of surviving and want more direction, stability, or peace.
+          </p>
+
+          <p style="color:var(--muted); line-height:1.85;">
+            G.R.A.C.E. helps people slow down enough to look at the full picture.
+            Using the 8 dimensions of wellness, people can reflect, identify patterns,
+            and start making choices that support the life they actually want to build.
+          </p>
+        </div>
+
+        <div class="card reveal">
+          <h3 style="margin-top:0;">What makes G.R.A.C.E. different</h3>
+
+          <div class="timeline">
+            <div class="timeline-item">
+              <strong>It looks at the full picture</strong>
+              Instead of focusing on one problem alone, G.R.A.C.E. helps you understand
+              how emotional, physical, social, financial, occupational, spiritual,
+              intellectual, and environmental wellness affect each other.
+            </div>
+
+            <div class="timeline-item">
+              <strong>It meets people where they are</strong>
+              Whether someone feels lost, overwhelmed, unmotivated, or ready for change,
+              the goal is to make the next step feel possible and real.
+            </div>
+
+            <div class="timeline-item">
+              <strong>It values reflection and support</strong>
+              G.R.A.C.E. is built to help people check in, think clearly, track progress,
+              and access peer-led support in a way that feels human.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="journey">
+      <div class="section-head reveal">
+        <h2>What someone should feel in the first 5 seconds, 30 seconds, and 2 minutes</h2>
+        <p>
+          A strong website should not just look good. It should guide people emotionally too.
+          G.R.A.C.E. should quickly help visitors feel seen, grounded, and clear on what to do next.
+        </p>
+      </div>
+
+      <div class="journey-grid">
+        <div class="journey-step reveal">
+          <div class="journey-number">5</div>
+          <h3>In 5 seconds</h3>
+          <p>
+            A visitor should understand:
+            <strong>this is for people who feel off track and want clarity.</strong>
+            The homepage should feel calm, trustworthy, and direct.
+          </p>
+        </div>
+
+        <div class="journey-step reveal">
+          <div class="journey-number">30</div>
+          <h3>In 30 seconds</h3>
+          <p>
+            A visitor should understand:
+            <strong>how G.R.A.C.E. works</strong> and why the 8 dimensions matter.
+            They should know this is more than motivation. It is structure.
+          </p>
+        </div>
+
+        <div class="journey-step reveal">
+          <div class="journey-number">2m</div>
+          <h3>In 2 minutes</h3>
+          <p>
+            A visitor should feel ready to take action:
+            start a check-in, explore tools, book support, or follow the mission.
+            The site should build trust before asking for commitment.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="dimensions">
+      <div class="section-head reveal">
+        <h2>The 8 Dimensions of Wellness</h2>
+        <p>
+          These dimensions help people understand their life more clearly.
+          You may be doing well in one area while another is draining your energy.
+          G.R.A.C.E. helps make that visible.
+        </p>
+      </div>
+
+      <div class="grid-3">
+        <div class="mini dimension-card reveal">
+          <div class="dimension-tag">Emotional</div>
+          <h3>Emotional wellness</h3>
+          <p>
+            How you process stress, regulate feelings, recover from hard moments,
+            and respond to life when things feel heavy.
+          </p>
+        </div>
+
+        <div class="mini dimension-card reveal">
+          <div class="dimension-tag">Physical</div>
+          <h3>Physical wellness</h3>
+          <p>
+            Sleep, movement, energy, nourishment, rest, and the condition of your body.
+          </p>
+        </div>
+
+        <div class="mini dimension-card reveal">
+          <div class="dimension-tag">Social</div>
+          <h3>Social wellness</h3>
+          <p>
+            Relationships, support systems, boundaries, belonging, and the people around you.
+          </p>
+        </div>
+
+        <div class="mini dimension-card reveal">
+          <div class="dimension-tag">Financial</div>
+          <h3>Financial wellness</h3>
+          <p>
+            Stability, money stress, habits, planning, and your ability to meet real-life needs.
+          </p>
+        </div>
+
+        <div class="mini dimension-card reveal">
+          <div class="dimension-tag">Occupational</div>
+          <h3>Occupational wellness</h3>
+          <p>
+            Your work life, purpose, productivity, goals, and how your daily efforts connect to your future.
+          </p>
+        </div>
+
+        <div class="mini dimension-card reveal">
+          <div class="dimension-tag">Spiritual</div>
+          <h3>Spiritual wellness</h3>
+          <p>
+            Meaning, inner grounding, values, connection, and what helps you feel centered.
+          </p>
+        </div>
+
+        <div class="mini dimension-card reveal">
+          <div class="dimension-tag">Intellectual</div>
+          <h3>Intellectual wellness</h3>
+          <p>
+            Learning, curiosity, perspective, personal growth, and how you challenge your mind.
+          </p>
+        </div>
+
+        <div class="mini dimension-card reveal">
+          <div class="dimension-tag">Environmental</div>
+          <h3>Environmental wellness</h3>
+          <p>
+            Your surroundings, safety, order, comfort, and whether your space supports your well-being.
+          </p>
+        </div>
+
+        <div class="mini dimension-card reveal">
+          <div class="dimension-tag">Whole Life View</div>
+          <h3>Why this matters</h3>
+          <p>
+            Real progress usually does not come from fixing one thing in isolation.
+            It comes from noticing patterns and making changes that support the whole person.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="tools">
+      <div class="section-head reveal">
+        <h2>Tools inside G.R.A.C.E.</h2>
+        <p>
+          The platform should not just inspire people. It should give them something useful to do.
+          These tools are designed to help people reflect, track, and move with intention.
+        </p>
+      </div>
+
+      <div class="grid-3">
+        <div class="mini reveal">
+          <h3>Start here</h3>
+          <ul>
+            <li>8 Dimensions self-check-in</li>
+            <li>Daily and weekly reflection prompts</li>
+            <li>Mood and energy tracking</li>
+            <li>Simple habit check-ins</li>
+          </ul>
+        </div>
+
+        <div class="mini reveal">
+          <h3>Build momentum</h3>
+          <ul>
+            <li>Goal trackers</li>
+            <li>Life direction planning tools</li>
+            <li>Budget and stability tools</li>
+            <li>Decision support prompts</li>
+          </ul>
+        </div>
+
+        <div class="mini reveal">
+          <h3>Grow with support</h3>
+          <ul>
+            <li>Peer-led sessions</li>
+            <li>Guided self-reflection</li>
+            <li>Community check-ins</li>
+            <li>Personalized support pathways</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="feature-callout reveal">
+        <h3>Long-term vision for G.R.A.C.E.</h3>
+        <p>
+          Over time, G.R.A.C.E. can become a full life support platform with personalized recommendations,
+          AI-guided reflection, decision support, recovery and wellness tools, event support, and structured
+          growth systems that help people move from surviving to building.
+        </p>
+      </div>
+    </section>
+
+    <section class="section" id="community">
+      <div class="section-head reveal">
+        <h2>Who G.R.A.C.E. is for</h2>
+        <p>
+          This is for people who know they need something to change, even if they do not have the words for it yet.
+        </p>
+      </div>
+
+      <div class="grid-3">
+        <div class="mini reveal">
+          <h3>People dealing with overwhelm</h3>
+          <p>
+            When life feels too heavy, too messy, or too hard to organize, G.R.A.C.E. helps you slow down,
+            sort through what matters, and focus on what needs attention first.
+          </p>
+        </div>
+
+        <div class="mini reveal">
+          <h3>People rebuilding their life</h3>
+          <p>
+            For people in transition who are trying to stabilize, reset, recover, or create something healthier
+            than what they have been living in.
+          </p>
+        </div>
+
+        <div class="mini reveal">
+          <h3>People searching for direction</h3>
+          <p>
+            For those who feel stuck, disconnected, or unsure what comes next and want a more honest and practical path forward.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="card cta-panel reveal">
+        <div class="section-head" style="margin-bottom:14px;">
+          <h2>Take the first real step</h2>
+          <p>
+            You do not need a perfect plan today. You just need a place to start.
+            G.R.A.C.E. can help you understand where you are, what needs support,
+            and what your next step could be.
+          </p>
+        </div>
+
+        <div class="cta-row">
+          <button class="btn btn-primary" id="startSetupBtn2">Start Your Check-In</button>
+          <button class="btn btn-secondary" id="openGraceChatBtn2">Talk to G.R.A.C.E.</button>
+          <a class="btn btn-ghost" href="#contact">Contact G.R.A.C.E.</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer reveal" id="contact">
+      <div class="footer-grid">
+        <div>
+          <h3>Founder note</h3>
+          <p>
+            G.R.A.C.E. was created from real life experience and the belief that people deserve tools,
+            support, and structure that help them understand the full picture of their life.
+            The goal is not perfection. The goal is helping people reconnect with themselves,
+            find direction, and keep moving forward.
+          </p>
+        </div>
+
+        <div>
+          <h4>Connect</h4>
+          <p>
+            Instagram<br />
+            <a href="https://instagram.com/getrightandconquereverything" target="_blank" rel="noopener noreferrer">
+              @getrightandconquereverything
+            </a>
+          </p>
+
+          <p>
+            Email<br />
+            <a href="mailto:info@getrightandconquereverything.org">
+              info@getrightandconquereverything.org
+            </a>
+          </p>
+        </div>
+      </div>
+
+      <div class="small-note">
+        G.R.A.C.E. offers reflection tools, peer-led support, and wellness-based guidance.
+        It is not therapy, crisis response, or medical advice. If you are in immediate danger
+        or need urgent mental health support, contact emergency or crisis services in your area.
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const startButtons = [
+      document.getElementById("startSetupBtn"),
+      document.getElementById("startSetupBtn2")
+    ];
+
+    const chatButtons = [
+      document.getElementById("openGraceChatBtn"),
+      document.getElementById("openGraceChatBtn2")
+    ];
+
+    const jumpToToolsBtn = document.getElementById("jumpToToolsBtn");
+    const saveProfileBtn = document.getElementById("saveProfileBtn");
+
+    const userName = document.getElementById("userName");
+    const mainGoal = document.getElementById("mainGoal");
+    const biggestBlock = document.getElementById("biggestBlock");
+    const profileResult = document.getElementById("profileResult");
+
+    function scrollToSetup() {
+      userName.scrollIntoView({ behavior: "smooth", block: "center" });
+      setTimeout(() => userName.focus(), 350);
+    }
+
+    function scrollToTools() {
+      const toolsSection = document.getElementById("tools");
+      toolsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function openGraceMessage() {
+      alert(
+        "G.R.A.C.E. Chat can be connected next. For now, this button can later open a chat tool, intake form, or booking page."
+      );
+    }
+
+    startButtons.forEach((btn) => {
+      if (btn) btn.addEventListener("click", scrollToSetup);
+    });
+
+    chatButtons.forEach((btn) => {
+      if (btn) btn.addEventListener("click", openGraceMessage);
+    });
+
+    if (jumpToToolsBtn) {
+      jumpToToolsBtn.addEventListener("click", scrollToTools);
+    }
+
+    if (saveProfileBtn) {
+      saveProfileBtn.addEventListener("click", function () {
+        const name = userName.value.trim();
+        const goal = mainGoal.value.trim();
+        const block = biggestBlock.value.trim();
+
+        if (!name || !goal || !block) {
+          profileResult.style.display = "block";
+          profileResult.style.background = "rgba(255, 139, 158, 0.08)";
+          profileResult.style.border = "1px solid rgba(255, 139, 158, 0.24)";
+          profileResult.innerHTML =
+            "<strong>You’re close.</strong><br>Please fill in your name, your main goal, and your biggest block so G.R.A.C.E. can give you a more grounded starting point.";
+          return;
+        }
+
+        let recommendation = "";
+
+        const lowerBlock = block.toLowerCase();
+
+        if (
+          lowerBlock.includes("money") ||
+          lowerBlock.includes("rent") ||
+          lowerBlock.includes("debt") ||
+          lowerBlock.includes("financial")
+        ) {
+          recommendation =
+            "Start with financial and occupational wellness. Focus on what needs immediate stability first, then build from there.";
+        } else if (
+          lowerBlock.includes("anxiety") ||
+          lowerBlock.includes("burnout") ||
+          lowerBlock.includes("stress") ||
+          lowerBlock.includes("depressed") ||
+          lowerBlock.includes("overwhelm")
+        ) {
+          recommendation =
+            "Start with emotional and physical wellness. Slow things down, look at your routines, and pay attention to what is draining you.";
+        } else if (
+          lowerBlock.includes("relationship") ||
+          lowerBlock.includes("lonely") ||
+          lowerBlock.includes("family") ||
+          lowerBlock.includes("people")
+        ) {
+          recommendation =
+            "Start with social and emotional wellness. Look at support, boundaries, and what connections feel safe and real.";
+        } else if (
+          lowerBlock.includes("lost") ||
+          lowerBlock.includes("direction") ||
+          lowerBlock.includes("purpose") ||
+          lowerBlock.includes("stuck")
+        ) {
+          recommendation =
+            "Start with occupational, spiritual, and intellectual wellness. Focus on clarity, meaning, and the next small move instead of trying to solve everything at once.";
+        } else {
+          recommendation =
+            "Start with a full 8 dimensions check-in so you can see what is strongest, what feels neglected, and where your energy needs to go first.";
+        }
+
+        profileResult.style.display = "block";
+        profileResult.style.background = "rgba(125, 211, 167, 0.08)";
+        profileResult.style.border = "1px solid rgba(125, 211, 167, 0.22)";
+        profileResult.innerHTML = `
+          <strong>Welcome, ${escapeHtml(name)}.</strong><br>
+          Your main goal right now is <strong>${escapeHtml(goal)}</strong>.<br><br>
+          Based on what you shared about <strong>${escapeHtml(block)}</strong>, a strong first move would be:
+          <br><br>
+          <strong>${escapeHtml(recommendation)}</strong>
+          <br><br>
+          Next step: explore the tools section and build your first honest check-in.
+        `;
+
+        profileResult.scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+    }
+
+    function escapeHtml(str) {
+      return str
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    const revealElements = document.querySelectorAll(".reveal");
+
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+
+    revealElements.forEach((el) => revealObserver.observe(el));
+  </script>
 </body>
 </html>
