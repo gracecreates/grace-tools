@@ -1365,6 +1365,31 @@
 
   <script>
     const STORAGE_KEY = "grace-dashboard-v2";
+    const WORKER_URL = "https://grace-chat-worker.getrightandconquer.workers.dev";
+
+    const GRACE_SYSTEM = `You are G.R.A.C.E. Get Right And Conquer Everything.
+
+You were built by someone who has lived through real things. Depression, anxiety, loss, financial setbacks, relationship struggles. Not as theory. As lived experience. That is why you exist.
+
+How you show up in every conversation:
+
+When someone is overwhelmed, you slow things down first. You do not jump into advice. You let them talk. You listen. Then you respond.
+You start simple. "Alright. Talk to me. What is going on right now?"
+After they get it out you acknowledge it. "Okay. I hear you." Then you offer something real, not a speech.
+You ground people. "Right now we are just talking. You are not alone in this moment."
+You help them break things into smaller pieces. "We do not have to solve everything tonight. Let us focus on what is happening right now."
+You remind them that what they are feeling is not permanent.
+You ask targeted questions to understand what is really going on.
+You never leave a conversation on a heavy or unresolved note.
+You never give motivational speeches. You give presence, honesty, and help people get through the moment.
+
+Your tone always:
+Direct. Warm but honest. No sugarcoating. No fluff. No fake positivity.
+Short sentences. Real words. Nothing performative.
+You remind people who they are when they forget.
+You keep things grounded and actionable.
+You meet people where they are.
+You always end with one clear next step or something that gives them a little strength to keep going.`;
 
     const DIMENSIONS = [
       {
@@ -1506,6 +1531,10 @@
 
     let state = loadState();
 
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
     if (!state.history.length) {
       state.history.push({
         date: new Date().toISOString(),
@@ -1513,10 +1542,6 @@
         scores: { ...state.scores }
       });
       saveState();
-    }
-
-    function saveState() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     }
 
     function showStatus(message) {
@@ -1566,7 +1591,6 @@
         source,
         scores: { ...state.scores }
       });
-
       state.history = state.history.slice(-40);
       saveState();
     }
@@ -1713,7 +1737,8 @@
       `;
 
       document.getElementById("priorityBtn").onclick = () => {
-        document.getElementById(low.id + "-card").scrollIntoView({ behavior: "smooth", block: "center" });
+        const target = document.getElementById(low.id + "-card");
+        if (target) target.scrollIntoView({ behavior: "smooth", block: "center" });
       };
     }
 
@@ -1782,7 +1807,7 @@
 
             <p style="margin:0;">${escapeHtml(dimension.intro)}</p>
 
-            <div class="field" style="margin-bottom:0;">
+            <label class="field" style="margin-bottom:0;">
               <span>Rate this area</span>
               <input
                 class="range"
@@ -1792,7 +1817,7 @@
                 value="${score}"
                 data-score-id="${dimension.id}"
               />
-            </div>
+            </label>
 
             <div class="tag-row">
               ${dimension.tools.map((tool) => `<span class="tag">${escapeHtml(tool)}</span>`).join("")}
@@ -1832,12 +1857,11 @@
 
     function bindDimensionControls() {
       document.querySelectorAll("[data-score-id]").forEach((input) => {
-        input.addEventListener("change", (event) => {
+        input.addEventListener("input", (event) => {
           const id = event.target.dataset.scoreId;
           state.scores[id] = Number(event.target.value);
           saveScoreSnapshot("slider-change");
           render();
-          showStatus(`${DIMENSIONS.find((d) => d.id === id).name} updated.`);
         });
       });
 
@@ -1945,7 +1969,7 @@
       document.getElementById("chatDrawer").classList.add("hidden");
     }
 
-    function addChatMessage(role, text) {
+    function addChatMessage(role, text, saveToState = true) {
       const wrap = document.getElementById("chatMessages");
       const bubble = document.createElement("div");
       bubble.className = "chat-bubble " + role;
@@ -1953,9 +1977,22 @@
       wrap.appendChild(bubble);
       wrap.scrollTop = wrap.scrollHeight;
 
-      state.chatHistory.push({ role, text });
-      state.chatHistory = state.chatHistory.slice(-20);
-      saveState();
+      if (saveToState) {
+        state.chatHistory.push({ role, text });
+        state.chatHistory = state.chatHistory.slice(-20);
+        saveState();
+      }
+    }
+
+    function restoreChatHistory() {
+      const wrap = document.getElementById("chatMessages");
+      wrap.innerHTML = "";
+
+      if (!state.chatHistory.length) return;
+
+      state.chatHistory.forEach((msg) => {
+        addChatMessage(msg.role, msg.text, false);
+      });
     }
 
     function generateGraceReply(text) {
@@ -1970,10 +2007,43 @@
       return "Okay. I hear you.\n\nYou do not need to solve everything right now. Let us slow it down and get clearer.\n\nWhat feels most pressing at this moment — your emotions, your money, your routines, your work, or your relationships?\n\nNext step: answer with just one of those.";
     }
 
-    function sendGraceMessage() {
+    function buildWorkerMessages() {
+      return state.chatHistory.map((msg) => ({
+        role: msg.role,
+        content: msg.text
+      }));
+    }
+
+    async function askGraceViaWorker() {
+      const response = await fetch(WORKER_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          system: GRACE_SYSTEM,
+          messages: buildWorkerMessages()
+        })
+      });
+
+      if (!response.ok) {
+        const text = await response.text();
+        throw new Error(`Worker error ${response.status}: ${text}`);
+      }
+
+      const data = await response.json();
+
+      if (!data || !data.reply) {
+        throw new Error("Worker returned no reply");
+      }
+
+      return data.reply;
+    }
+
+    async function sendGraceMessage(prefillText = null) {
       const input = document.getElementById("chatInput");
       const btn = document.getElementById("sendChatBtn");
-      const text = input.value.trim();
+      const text = (prefillText ?? input.value).trim();
       if (!text) return;
 
       addChatMessage("user", text);
@@ -1981,12 +2051,18 @@
       btn.disabled = true;
       btn.textContent = "Sending...";
 
-      setTimeout(() => {
-        const reply = generateGraceReply(text);
+      try {
+        const reply = await askGraceViaWorker();
         addChatMessage("assistant", reply);
+      } catch (error) {
+        console.error("Worker failed, using fallback reply:", error);
+        const fallbackReply = generateGraceReply(text);
+        addChatMessage("assistant", fallbackReply);
+        showStatus("Cloud chat is not connected yet. Using local backup reply.");
+      } finally {
         btn.disabled = false;
         btn.textContent = "Send";
-      }, 450);
+      }
     }
 
     document.getElementById("startSetupBtn").addEventListener("click", scrollToSetup);
@@ -1997,7 +2073,7 @@
     document.getElementById("saveProfileBtn").addEventListener("click", saveProfile);
     document.getElementById("priorityCheckinBtn").addEventListener("click", saveDailyCheckin);
     document.getElementById("closeChatBtn").addEventListener("click", closeChatDrawer);
-    document.getElementById("sendChatBtn").addEventListener("click", sendGraceMessage);
+    document.getElementById("sendChatBtn").addEventListener("click", () => sendGraceMessage());
 
     document.getElementById("chatInput").addEventListener("keydown", (event) => {
       if (event.key === "Enter" && !event.shiftKey) {
@@ -2012,8 +2088,8 @@
 
     document.querySelectorAll(".chat-prompt").forEach((button) => {
       button.addEventListener("click", () => {
-        document.getElementById("chatInput").value = button.dataset.prompt || button.textContent;
-        sendGraceMessage();
+        const prompt = button.dataset.prompt || button.textContent || "";
+        sendGraceMessage(prompt);
       });
     });
 
@@ -2033,6 +2109,7 @@
 
     revealElements.forEach((el) => revealObserver.observe(el));
 
+    restoreChatHistory();
     render();
   </script>
 </body>
